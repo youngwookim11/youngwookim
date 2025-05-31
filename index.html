@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>개별 박스 조절 텍스트 박스</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @font-face {
+      font-family: 'Paperlogy-8ExtraBold';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    .fall {
+      animation: fallDown 0.7s ease-in forwards;
+    }
+
+    @keyframes fallDown {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      100% {
+        transform: translateY(300px);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    #black-bg-wrapper {
+      background-color: black;
+      width: 100vw;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    #content {
+      width: 80%;
+      max-width: 560px;
+      color: white;
+      transition: transform 0.3s ease;
+      transform-origin: top center;
+    }
+
+    #buttonContainer > div {
+      display: inline-flex;
+      min-height: 40px;
+      border-radius: 1.5rem;
+      border: 2px solid white;
+      background-color: black;
+      margin: 0 8px 8px 0;
+      padding: 0;
+    }
+
+    .square-button {
+      font-family: 'Paperlogy-8ExtraBold', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: white;
+      background-color: transparent;
+      border: none;
+      padding: 0 0.75rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      border-radius: 1.5rem;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .flex-break {
+      flex-basis: 0% !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      display: block !important;
+      line-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .square-button.active {
+      transform: scale(1.1);
+    }
+
+    .square-button:hover {
+      background-color: white;
+      color: black;
+    }
+
+    #buttonContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0;
+      width: 100%;
+    }
+
+    /* 모바일 전용: 스케일 1.1, 버튼 글자크기와 패딩 키우기 */
+    @media (max-width: 500px) {
+      #content {
+        transform: scale(1.1) !important;
+      }
+
+      .square-button {
+        font-size: 1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+
+      #buttonContainer > div {
+        min-height: 40px !important;
+        margin: 0 8px 8px 0 !important;
+      }
+
+      body {
+        padding: 2rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="black-bg-wrapper">
+    <div id="content">
+      <button id="resetBtn" class="bg-black text-white border border-white px-3 py-2 rounded-full font-bold mb-4">
+        Reset
+      </button>
+
+      <div id="buttonContainer">
+        <div><button class="square-button">점심 추천해줘</button></div>
+        <div><button class="square-button">뭐야</button></div>
+        <div><button class="square-button">해 봐</button></div>
+        <div><button class="square-button">창의적으로</button></div>
+        <div><button class="square-button">뭐라도 줘 봐</button></div>
+        <div class="flex-break"></div>
+        <div><button class="square-button">알아서 잘.</button></div>
+        <div><button class="square-button">센 거 줘봐.</button></div>
+        <div><button class="square-button">느낌 있게</button></div>
+        <div><button class="square-button">자동으로 해줘</button></div>
+        <div><button class="square-button">해</button></div>
+        <div class="flex-break"></div>
+        <div><button class="square-button">좀 더 특별하게</button></div>
+        <div><button class="square-button">알아서 해줘</button></div>
+        <div><button class="square-button">뭔데</button></div>
+        <div><button class="square-button">너가 해줘</button></div>
+        <div><button class="square-button">알려줘</button></div>
+        <div class="flex-break"></div>
+        <div><button class="square-button">독창적으로</button></div>
+        <div><button class="square-button">배고파</button></div>
+        <div><button class="square-button">이건 어때</button></div>
+        <div><button class="square-button">더 예쁘게</button></div>
+        <div><button class="square-button">짧게 해줘.</button></div>
+        <div class="flex-break"></div>
+        <div><button class="square-button">예시 줘.</button></div>
+        <div><button class="square-button">그냥 해줘</button></div>
+        <div><button class="square-button">해 봐.</button></div>
+        <div><button class="square-button">그냥 대충</button></div>
+        <div><button class="square-button">더 감성적으로.</button></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll(".square-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const parentDiv = button.parentElement;
+        button.classList.add("active");
+        setTimeout(() => {
+          button.classList.remove("active");
+        }, 200);
+        parentDiv.classList.add("fall");
+      });
+    });
+
+    document.getElementById("resetBtn").onclick = () => {
+      const parents = document.querySelectorAll("#buttonContainer > div");
+      parents.forEach(p => {
+        p.classList.remove("fall");
+      });
+    };
+  </script>
+</body>
+</html>
