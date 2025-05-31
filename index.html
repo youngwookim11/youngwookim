@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>개별 박스 조절 텍스트 박스</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -74,7 +75,6 @@
       cursor: pointer;
       transition: all 0.2s ease-in-out;
       border-radius: 1.5rem;
-      transition: transform 0.2s ease-in-out;
     }
 
     .flex-break {
@@ -105,25 +105,41 @@
       width: 100%;
     }
 
-    /* 모바일 전용: 스케일 1.1, 버튼 글자크기와 패딩 키우기 */
+    /* 모바일 전용 */
     @media (max-width: 500px) {
-      #content {
-        transform: scale(1.1) !important;
+      /* reset 버튼 제외한 박스(부모 div) 크기 조절 */
+      #buttonContainer > div:not(:has(#resetBtn)) {
+        min-height: 30px !important;
+        height: 32px !important;
+        margin: 0 3px 5px 0 !important;
+        border-radius: 1rem !important;
+        border-width: 1.5px !important;
       }
 
-      .square-button {
-        font-size: 1rem !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+      /* reset 버튼 제외한 실제 버튼 크기 조절 */
+      #buttonContainer .square-button {
+        font-size: 0.9rem !important;
+        padding: 0 0.4rem !important;
+        height: 30px !important;
+        border-radius: 1rem !important;
+      }
+
+      /* reset 버튼 모바일 전용 스타일 */
+      #resetBtn {
+        font-size: 0.9rem !important;
+        padding: 0 !important;
+        height: 30px !important;
+        border-radius: 9999px !important;
+        min-width: 60px !important;
+      }
+
+      #content {
+        width: 95% !important;
+        max-width: none !important;
       }
 
       #buttonContainer > div {
-        min-height: 40px !important;
-        margin: 0 8px 8px 0 !important;
-      }
-
-      body {
-        padding: 2rem !important;
+        margin: 0 !important;
       }
     }
   </style>
@@ -131,7 +147,7 @@
 <body>
   <div id="black-bg-wrapper">
     <div id="content">
-      <button id="resetBtn" class="bg-black text-white border border-white px-3 py-2 rounded-full font-bold mb-4">
+      <button id="resetBtn" class="bg-white text-black border border-black px-3 py-2 rounded-full font-bold mb-4">
         Reset
       </button>
 
